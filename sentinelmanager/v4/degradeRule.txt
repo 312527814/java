@@ -1,0 +1,1 @@
+[{"count":1.0,"grade":0,"limitApp":"default","minRequestAmount":5,"resource":"/check/web4","rtSlowRequestAmount":5,"timeWindow":2},{"count":2.0,"grade":0,"limitApp":"default","minRequestAmount":5,"resource":"/check/web4","rtSlowRequestAmount":5,"timeWindow":4}]
