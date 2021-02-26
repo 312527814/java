@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="myServlet" class="com.my.servlet.MyServlet" lazy-init="true"/>
+
+    <bean id="myAdvice" class="com.my.aop.aspect.MyAdvice"/>
+
+    <!-- Aop配置 -->
+    <aop:config>
+        <aop:aspect ref="myAdvice">
+            <aop:pointcut id="mypoint" expression="execution(* com.my.servlet.*.*(..))"/>
+            <aop:before method="before" pointcut-ref="mypoint"></aop:before>
+            <aop:after method="after" pointcut-ref="mypoint"></aop:after>
+            <aop:around method="arround" pointcut-ref="mypoint"></aop:around>
+
+        </aop:aspect>
+    </aop:config>
+
+</beans>

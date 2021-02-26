@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- 配置文件的根元素 -->
+<configuration>
+
+    <!-- 属性：定义配置外在化 -->
+    <!--            <properties>-->
+    <!--                <property name="mapperLocations" value="classpath*:/src/main/resources/mapper/*.xml"/>-->
+    <!--            </properties>-->
+    <!--    &lt;!&ndash; 设置：定义mybatis的一些全局性设置 &ndash;&gt;-->
+    <!--    <settings>-->
+    <!--        &lt;!&ndash; 具体的参数名和参数值 &ndash;&gt;-->
+    <!--        <setting name="" value=""/>-->
+    <!--    </settings>-->
+    <!--    &lt;!&ndash; 类型名称：为一些类定义别名 &ndash;&gt;-->
+    <!--    <typeAliases></typeAliases>-->
+    <!--    &lt;!&ndash; 类型处理器：定义Java类型与数据库中的数据类型之间的转换关系 &ndash;&gt;-->
+    <!--    <typeHandlers></typeHandlers>-->
+    <!--    &lt;!&ndash; 对象工厂 &ndash;&gt;-->
+    <!--    <objectFactory type=""></objectFactory>-->
+    <!--    &lt;!&ndash; 插件：mybatis的插件,插件可以修改mybatis的内部运行规则 &ndash;&gt;-->
+    <!--    <plugins>-->
+    <!--        <plugin interceptor=""></plugin>-->
+    <!--    </plugins>-->
+    <!-- 环境：配置mybatis的环境 -->
+    <settings>
+        <setting name="logImpl" value="LOG4J"/>
+        <setting name="cacheEnabled" value="true" />
+<!--        <setting name="lazyLoadingEnabled" value="true"/>-->
+    </settings>
+    <typeHandlers>
+        <typeHandler jdbcType="VARCHAR" javaType="string" handler="com.my.MyTypeHandler"/>
+        <!--        <typeHandler jdbcType="INTEGER" javaType="com.my.pojo.UserStatus" handler="com.my.MyEumeTypeHandler"/>-->
+    </typeHandlers>
+    <plugins>
+<!--        <plugin interceptor="com.my.interceptor.ExecutePlugin">-->
+<!--            <property name="someProperty" value="100"/>-->
+<!--        </plugin>-->
+        <plugin interceptor="com.my.interceptor.StatementHandlerPlugin">
+            <property name="someProperty" value="100"/>
+        </plugin>
+        <plugin interceptor="com.my.interceptor.ParameterHandlerPlugin">
+            <property name="someProperty" value="100"/>
+        </plugin>
+
+    </plugins>
+    <environments default="">
+
+        <!-- 环境变量：可以配置多个环境变量，比如使用多数据源时，就需要配置多个环境变量 -->
+        <environment id="">
+
+            <!-- 事务管理器 -->
+            <transactionManager type="jdbc">
+            </transactionManager>
+            <!-- 数据源 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url"
+                          value="jdbc:mysql://localhost:3306/mytest?useUnicode=true&amp;characeterEncoding=utf-8&amp;serverTimezone=UTC"/>
+                <property name="username" value="root"/>
+                <property name="password" value="123456"/>
+                <property name="poolMaximumActiveConnections" value="12"/><!--最大活跃连接数 -->
+                <property name="poolMaximumIdleConnections" value="6"/><!--最大空闲连接数-->
+                <!--                <property name="poolTimeToWait" value="7"/>-->
+                <!--                <property name="poolTimeToWait" value="6"/>-->
+            </dataSource>
+
+        </environment>
+    </environments>
+    <!-- 数据库厂商标识 -->
+    <!--    <databaseIdProvider type=""></databaseIdProvider>-->
+    <!-- 映射器：指定映射文件或者映射类 -->
+    <mappers>
+        <mapper class="com.my.mapper.flowerMapper"/>
+        <mapper class="com.my.mapper.userMapper"/>
+    </mappers>
+</configuration>
