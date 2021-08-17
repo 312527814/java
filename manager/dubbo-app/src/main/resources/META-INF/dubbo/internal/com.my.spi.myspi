@@ -1,0 +1,3 @@
+myspi1=com.my.spi.MySpi1
+myspi2=com.my.spi.MySpi2
+adaptive=com.my.spi.MySpiAdaptive

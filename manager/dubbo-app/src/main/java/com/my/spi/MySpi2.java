@@ -1,0 +1,14 @@
+package com.my.spi;
+
+/**
+ * @program:
+ * @description:
+ * @author: liang.liu
+ * @create: 2021-08-16 18:54
+ */
+public class MySpi2 implements MySpi {
+    @Override
+    public void say() {
+        System.out.println("我是spi 2");
+    }
+}
