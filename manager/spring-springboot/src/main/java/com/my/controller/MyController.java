@@ -2,10 +2,12 @@ package com.my.controller;
 
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RestController
@@ -21,5 +23,15 @@ public class MyController {
         System.out.println("currentTheard=>" + Thread.currentThread().getName());
         String port = environment.getProperty("server.port");
         return "hello index+" + port;
+    }
+
+    @RequestMapping(value = "/param", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> getFormatData() {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("name", "zhangsan");
+        map.put("age", 22);
+        map.put("date", new Date());
+        return map;
     }
 }

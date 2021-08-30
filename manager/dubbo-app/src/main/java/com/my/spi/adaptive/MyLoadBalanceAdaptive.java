@@ -1,4 +1,4 @@
-package com.my.spi.lb;
+package com.my.spi.adaptive;
 
 import com.alibaba.dubbo.common.extension.Adaptive;
 import com.alibaba.dubbo.common.extension.ExtensionLoader;
@@ -11,7 +11,7 @@ import com.alibaba.dubbo.rpc.cluster.LoadBalance;
  * @create: 2021-08-16 19:43
  */
 @Adaptive
-public class LoadBalanceAdaptive implements LoadBalance {
+public class MyLoadBalanceAdaptive implements LoadBalance {
 
     public com.alibaba.dubbo.rpc.Invoker select(java.util.List arg0, com.alibaba.dubbo.common.URL arg1, com.alibaba.dubbo.rpc.Invocation arg2) throws com.alibaba.dubbo.rpc.RpcException {
         if (arg1 == null) throw new IllegalArgumentException("url == null");

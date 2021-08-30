@@ -1,1 +1,1 @@
-adaptive=com.my.spi.lb.LoadBalanceAdaptive
+adaptive=com.my.spi.adaptive.MyLoadBalanceAdaptive

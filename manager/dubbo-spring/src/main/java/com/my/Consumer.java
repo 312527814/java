@@ -1,7 +1,9 @@
 package com.my;
 
 import com.my.api.DemoService;
+import com.my.api.DemoService2;
 import com.my.services.DemoConsumerService;
+import com.my.services.DemoConsumerService2;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Consumer {
@@ -21,7 +23,29 @@ public class Consumer {
 
         {
             try {
+                DemoService2 demoService =  context.getBean(DemoService2.class); // 获取远程服务代理
+                String hello = demoService.sayHello("world"); // 执行远程方法
+                System.out.println("............" + hello + "............"); // 显示调用结果
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        {
+            try {
                 DemoConsumerService bean = context.getBean(DemoConsumerService.class);// 获取远程服务代理
+                String hello = bean.test("world"); // 执行远程方法
+                System.out.println("............" + hello + "............"); // 显示调用结果
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        {
+            try {
+                DemoConsumerService2 bean = context.getBean(DemoConsumerService2.class);// 获取远程服务代理
                 String hello = bean.test("world"); // 执行远程方法
                 System.out.println("............" + hello + "............"); // 显示调用结果
 

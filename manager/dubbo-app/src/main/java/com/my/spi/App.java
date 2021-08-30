@@ -15,12 +15,16 @@ public class App {
 
     @Test
     public void DubboSPITest() {
+
+//        ExtensionLoader<LoadBalance> extensionLoader1 = ExtensionLoader.getExtensionLoader(LoadBalance.class);
         ExtensionLoader<MySpi> extensionLoader =
                 ExtensionLoader.getExtensionLoader(MySpi.class);
-        MySpi adaptiveExtension = extensionLoader.getAdaptiveExtension();
+
         MySpi myspi1 = extensionLoader.getExtension("myspi1");
 
         MySpi myspi2 = extensionLoader.getExtension("myspi2");
+
+        MySpi adaptiveExtension = extensionLoader.getAdaptiveExtension();
     }
 
     @Test

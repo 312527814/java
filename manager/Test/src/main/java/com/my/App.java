@@ -1,5 +1,7 @@
 package com.my;
 
+import org.junit.Test;
+
 import java.util.Random;
 import java.util.UUID;
 
@@ -20,12 +22,34 @@ public class App {
         }
 
     }
-    public  static  void test( Integer[] DB_DATA  ){
+
+    public static void test(Integer[] DB_DATA) {
 
         for (int i = 0; i < MAX; i++) {
             //arr[i] = new String(String.valueOf(DB_DATA[i % DB_DATA.length]));
             arr[i] = new String(String.valueOf(DB_DATA[i % DB_DATA.length])).intern();
         }
 
+    }
+
+
+    @Test
+    public void testIntern() {
+        String s1 = new String("1");
+        String s2 = s1;
+        s1.intern();
+        System.out.println("s1==s2:" +(s1 == s2) );
+    }
+    @Test
+    public void main() {
+        String s = new String("1");
+        s.intern();
+        String s2 = "1";
+        System.out.println(s == s2);
+
+        String s3 = new String("1") + new String("1");
+        s3.intern();
+        String s4 = "11";
+        System.out.println(s3 == s4);
     }
 }

@@ -21,4 +21,10 @@
 
     <!-- 和本地bean一样实现服务 -->
     <bean id="demoService" class="com.my.api.DemoServiceImpl" />
+
+    <!-- 声明需要暴露的服务接口 -->
+    <dubbo:service interface="com.my.api.DemoService2" ref="demoService2" />
+
+    <!-- 和本地bean一样实现服务 -->
+    <bean id="demoService2" class="com.my.api.DemoServiceImpl2" />
 </beans>

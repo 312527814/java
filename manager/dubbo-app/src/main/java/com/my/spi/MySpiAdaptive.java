@@ -8,7 +8,7 @@ import com.alibaba.dubbo.common.extension.Adaptive;
  * @author: liang.liu
  * @create: 2021-08-16 18:54
  */
-//@Adaptive
+@Adaptive
 public class MySpiAdaptive implements MySpi {
     @Override
     public void say() {
