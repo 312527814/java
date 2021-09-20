@@ -1,7 +1,7 @@
 package com.my;
 
-import com.my.pojp.FactoryBeanTest;
-import com.my.pojp.Person;
+import com.my.pojo.FactoryBeanTest;
+import com.my.pojo.Person;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**

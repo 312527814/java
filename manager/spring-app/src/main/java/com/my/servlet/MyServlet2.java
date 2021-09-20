@@ -1,6 +1,6 @@
 package com.my.servlet;
 
-import com.my.pojp.Person;
+import com.my.pojo.Person;
 
 import javax.annotation.Resource;
 

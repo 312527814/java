@@ -17,11 +17,12 @@
     <bean id="myServlet" class="com.my.servlet.MyServlet" lazy-init="true" init-method="init">
         <property name="person" ref="person"></property>
     </bean>
-    <bean name="person" class="com.my.pojp.Person"/>
+    <bean name="person" class="com.my.pojo.Person"/>
 
     <bean class="com.my.support.ApplicationContextHelper" id="applicationContextHelper"></bean>
 
     <bean id="customBeanPostProcessor" class="com.my.support.CustomBeanPostProcessor"></bean>
+    <bean id="ConfigurationClassPostProcessor" class="org.springframework.context.annotation.ConfigurationClassPostProcessor"></bean>
 
 
     <bean id="customBeanFactoryPostProcessor" class="com.my.support.CustomBeanFactoryPostProcessor"/>

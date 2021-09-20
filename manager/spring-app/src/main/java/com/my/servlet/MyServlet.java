@@ -1,7 +1,7 @@
 package com.my.servlet;
 
 
-import com.my.pojp.Person;
+import com.my.pojo.Person;
 
 public class MyServlet implements BaseServlet {
     private Person person;

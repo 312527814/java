@@ -29,6 +29,9 @@
         <module>tomcat-user-defined</module>
         <module>multithreading</module>
         <module>proxy</module>
+        <module>io-app</module>
+        <module>netty-app</module>
+        <module>spring-autoconfigrution</module>
     </modules>
     <name>manager</name>
     <!-- FIXME change it to the project's website -->
@@ -41,6 +44,13 @@
     </properties>
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>4.1.6.Final</version>
+            </dependency>
+
             <!-- mybatis  -->
             <dependency>
                 <groupId>org.mybatis</groupId>

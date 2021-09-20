@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RestController
+//@RestController
 public class MyController {
 
     int i = 0;
@@ -33,5 +33,10 @@ public class MyController {
         map.put("age", 22);
         map.put("date", new Date());
         return map;
+    }
+
+    @RequestMapping(value = "/redirect", method = RequestMethod.GET)
+    public String redirect() {
+        return "redirect:http://www.baidu.com";
     }
 }

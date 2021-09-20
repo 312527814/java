@@ -1,4 +1,4 @@
-package com.my.pojp;
+package com.my.pojo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

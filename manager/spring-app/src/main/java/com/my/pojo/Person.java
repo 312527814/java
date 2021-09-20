@@ -1,9 +1,12 @@
-package com.my.pojp;
+package com.my.pojo;
 
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 @Component
+@Configuration
 public class Person implements InitializingBean {
 
     public Person() {
@@ -36,5 +39,17 @@ public class Person implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         System.out.print("afterPropertiesSet");
+    }
+
+    @Bean
+    public Test getTest(){
+
+        return  new Test();
+    }
+
+    @Bean
+    public Test getTest2(){
+
+        return  getTest();
     }
 }

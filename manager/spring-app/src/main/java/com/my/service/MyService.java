@@ -1,6 +1,6 @@
 package com.my.service;
 
-import com.my.pojp.Flower;
+import com.my.pojo.Flower;
 
 import java.util.List;
 

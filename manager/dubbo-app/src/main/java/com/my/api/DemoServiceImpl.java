@@ -24,7 +24,7 @@ public class DemoServiceImpl implements DemoService {
         }
 
         System.out.println("Hello " + name + " prot:" + port);
-        return "Hello " + name + " prot:" + port;
+        return "Hello " + name + " port:" + port;
     }
 
 

@@ -1,6 +1,6 @@
 package com.my.service;
 
-import com.my.pojp.Flower;
+import com.my.pojo.Flower;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;

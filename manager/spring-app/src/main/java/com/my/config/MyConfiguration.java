@@ -1,6 +1,6 @@
 package com.my.config;
 
-import com.my.pojp.Test;
+import com.my.pojo.Test;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

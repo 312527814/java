@@ -12,7 +12,7 @@
     <bean id="myServlet" class="com.my.servlet.MyServlet" lazy-init="true" init-method="init">
         <property name="person" ref="person"></property>
     </bean>
-    <bean name="person" class="com.my.pojp.Person"/>
+    <bean name="person" class="com.my.pojo.Person"/>
 
     <bean id="customBeanFactoryPostProcessor" class="com.my.support.CustomBeanFactoryPostProcessor"/>
     <bean id="myBeforeAdvice" class="com.my.aop.advisor.MyBeforeAdvice"/>

@@ -16,7 +16,7 @@ public class AppProvider {
     @Test
     public void main() throws InterruptedException {
         main1();
-//        main2();
+        main2();
         new CountDownLatch(1).await();
     }
 
@@ -58,7 +58,7 @@ public class AppProvider {
             service.setRef(demoService);
             service.setVersion("1.0.0");
             service.setTimeout(2000);
-            service.setFilter("MyFilter2");
+//            service.setFilter("MyFilter2");
 
 // 暴露及注册服务
             service.export();

@@ -1,4 +1,4 @@
-package com.my.pojp;
+package com.my.pojo;
 
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.stereotype.Component;
