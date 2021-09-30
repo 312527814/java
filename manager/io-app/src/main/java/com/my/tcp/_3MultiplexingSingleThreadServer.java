@@ -82,7 +82,7 @@ public class _3MultiplexingSingleThreadServer {
         buffer.put(next.getBytes());
         buffer.flip();
         client.write(buffer);
-
+        client.register(selector, SelectionKey.OP_WRITE);
 //        client.close();
 //        client.register(selector, SelectionKey.OP_WRITE, buffer);
 

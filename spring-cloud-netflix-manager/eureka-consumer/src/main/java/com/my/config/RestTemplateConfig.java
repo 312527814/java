@@ -1,5 +1,6 @@
 package com.my.config;
 
+import com.my.controller.Test;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,5 +19,10 @@ public class RestTemplateConfig {
     public RestTemplate restTemplate() {
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate;
+    }
+    @LoadBalanced
+    @Bean
+    public Test test() {
+        return new Test();
     }
 }

@@ -16,7 +16,7 @@ public class SpringiocApp {
             System.out.println("\r\n" + s);
         }
 
-
+        Object factoryBeanTest1 = ac.getBean("factoryBeanTest");
 
         Object people2 = ac.getBean("flower");
         Object people = ac.getBean("teacher");

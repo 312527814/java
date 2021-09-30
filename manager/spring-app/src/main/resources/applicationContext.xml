@@ -14,11 +14,12 @@
           class="org.springframework.context.event.SimpleApplicationEventMulticaster"></bean>
 
 
-    <bean id="myServlet" class="com.my.servlet.MyServlet" lazy-init="true" init-method="init">
+    <bean id="myServlet" class="com.my.servlet.MyServlet"  init-method="init">
         <property name="person" ref="person"></property>
     </bean>
     <bean name="person" class="com.my.pojo.Person"/>
 
+    <bean name="factoryBeanTest" class="com.my.pojo.FactoryBeanTest"/>
     <bean class="com.my.support.ApplicationContextHelper" id="applicationContextHelper"></bean>
 
     <bean id="customBeanPostProcessor" class="com.my.support.CustomBeanPostProcessor"></bean>

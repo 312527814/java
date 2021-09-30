@@ -21,7 +21,7 @@ public class _4MultiplexingMultiThreadServer2 {
     public static void main(String[] args) throws IOException {
         ServerSocketChannel server = ServerSocketChannel.open();
         server.bind(new InetSocketAddress(9090));
-        server.configureBlocking(true);
+        server.configureBlocking(false);
         selectorThreads = initSeleteorThreads(2);
         System.out.println("start........");
         Selector selector = Selector.open();

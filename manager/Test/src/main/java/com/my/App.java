@@ -1,5 +1,9 @@
 package com.my;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Random;
 
 /**
@@ -12,11 +16,29 @@ public class App {
     static final String[] arr = new String[MAX];
 
     public static void main(String[] args) throws Exception {
-        Integer[] DB_DATA = new Integer[10];
-        Random random = new Random(10 * 10000);
-        for (int i = 0; i < DB_DATA.length; i++) {
-            DB_DATA[i] = random.nextInt();
+
+        HashMap<Object, Object> objectObjectHashMap = new HashMap<>();
+        objectObjectHashMap.put(null,null);
+        Hashtable<Object, Object> objectObjectHashtable = new Hashtable<>();
+        objectObjectHashtable.put(null,null);
+        String ddd = new String("ddd");
+        if (ddd == "ddd") {
+            System.out.println(true);
         }
+
+        //41位二进制最小值
+        String minTimeStampStr = "00000000000000000000000000000000000000000";
+        //41位二进制最大值
+        String maxTimeStampStr = "11111111111111111111111111111111111111111";
+        //转10进制
+        long minTimeStamp = new BigInteger(minTimeStampStr, 2).longValue();
+        long maxTimeStamp = new BigInteger(maxTimeStampStr, 2).longValue();
+
+        System.out.println(maxTimeStamp);
+        //一年总共多少毫秒
+        long oneYearMills = 1L * 1000 * 60 * 60 * 24 * 365;
+        //算出最大可以多少年
+        System.out.println((maxTimeStamp - minTimeStamp) / oneYearMills);
 
     }
 
