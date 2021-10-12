@@ -11,6 +11,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
+
 public class ProducerApp {
     public static void main(String[] args) throws Exception {
         Properties props = new Properties();
@@ -27,6 +28,7 @@ public class ProducerApp {
 
 
         Producer<String, String> producer = new KafkaProducer<>(props);
+
         for (int i = 0; i < 20; i++) {
 //            if (i == 3) {
 //                i = 10 / 0;
@@ -36,6 +38,7 @@ public class ProducerApp {
 //            String s = sc.nextLine();//读取字符串
 
             String s = "xxooooxxooxxooxx的";
+
             Future<RecordMetadata> test1 = producer.send(new ProducerRecord<>("test3", s + i), new Callback() {
                 @Override
                 public void onCompletion(RecordMetadata metadata, Exception exception) {

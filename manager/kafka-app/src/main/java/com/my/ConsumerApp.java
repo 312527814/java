@@ -24,11 +24,11 @@ public class ConsumerApp {
         props.setProperty("enable.auto.commit", "false");
 //        props.setProperty("auto.commit.interval.ms", "100");
         props.put("max.poll.records", "2");
-        props.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
+        props.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         props.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
         props.setProperty("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
-        consumer.subscribe(Arrays.asList("test5"));
+        consumer.subscribe(Arrays.asList("test3"));
 
         while (true) {
             ConsumerRecords<String, String> records = consumer.poll(1000 * 40);
@@ -44,9 +44,11 @@ public class ConsumerApp {
                 consumer.commitAsync(offsets, new OffsetCommitCallback() {
                     @Override
                     public void onComplete(Map<TopicPartition, OffsetAndMetadata> offsets, Exception exception) {
-                        if (exception != null) {
-                            System.out.println(exception.toString());
-                        }
+//                        if (exception != null) {
+//                            System.out.println(exception.toString());
+//                        }
+
+                        System.out.println(offsets);
                     }
                 });
             }

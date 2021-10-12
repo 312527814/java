@@ -1,0 +1,43 @@
+<!--
+  ~ Copyright (c) 2016 iKang Guobin Healthcare Group. All rights reserved.
+  -->
+<configuration scan="true" debug="false">
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+<!--            <pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %caller{1} - %msg%n</pattern>-->
+<!--            <pattern>%d %-5level [%thread][%logger][%X{X-B3-TraceId:-},%X{X-B3-SpanId:-}]:%line - %msg%n</pattern>-->
+            <pattern>%d %-5level [%thread][%logger][%X{traceId},%X{spanId}]:%line - %msg%n</pattern>
+
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!--输出到文件-->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log_home}/api.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!--log_home为环境指定系统变量-->
+            <fileNamePattern>${log_home}/dental-api.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>20MB</maxFileSize>
+        </rollingPolicy>
+        <encoder>
+<!--            <pattern>%d{HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} - %msg%n</pattern>-->
+            <pattern>%d %-5level [%thread][%logger]:%line - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+      
+    <root level="INFO">
+<!--  		<appender-ref ref="FILE" />-->
+        <appender-ref ref="CONSOLE" />
+    </root>
+<!--    <logger name="org.hibernate.SQL" level="DEBUG"/>-->
+<!--    <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE"/>-->
+<!--    <logger name="org.springframework.jdbc.core.JdbcTemplate" level="DEBUG"/>-->
+<!--    <logger name="org.springframework.jdbc.core.StatementCreatorUtils" level="TRACE"/>-->
+<!--    <logger name="io.lettuce.core" level="INFO"/>-->
+<!--    <logger name="org.springframework" level="INFO"/>-->
+<!--    <logger name="com.zaxxer.hikari" level="INFO"/>-->
+<!--    <logger name="org.jasig.cas.client.session" level="INFO"/>-->
+</configuration>

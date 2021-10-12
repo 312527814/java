@@ -33,6 +33,7 @@
         <module>netty-app</module>
         <module>spring-autoconfigrution</module>
         <module>kafka-app</module>
+        <module>springboot-war</module>
     </modules>
     <name>manager</name>
     <!-- FIXME change it to the project's website -->
