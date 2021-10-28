@@ -1,10 +1,9 @@
 package com.my;
 
+import org.junit.Test;
+
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Hello world!
@@ -12,15 +11,15 @@ import java.util.Random;
 public class App {
 
 
-    static final int MAX = 1000 * 10000;
+    public static final int MAX = 1000 * 10000;
     static final String[] arr = new String[MAX];
 
     public static void main(String[] args) throws Exception {
 
         HashMap<Object, Object> objectObjectHashMap = new HashMap<>();
-        objectObjectHashMap.put(null,null);
+        objectObjectHashMap.put(null, null);
         Hashtable<Object, Object> objectObjectHashtable = new Hashtable<>();
-        objectObjectHashtable.put(null,null);
+        objectObjectHashtable.put(null, null);
         String ddd = new String("ddd");
         if (ddd == "ddd") {
             System.out.println(true);
@@ -49,6 +48,16 @@ public class App {
             arr[i] = new String(String.valueOf(DB_DATA[i % DB_DATA.length])).intern();
         }
 
+    }
+
+    @Test
+    public  void  tt(){
+
+
+        for (int j = 0; j < 10; j++) {
+            String string = UUID.randomUUID().toString();
+            System.out.println(string.hashCode());
+        }
     }
 
 

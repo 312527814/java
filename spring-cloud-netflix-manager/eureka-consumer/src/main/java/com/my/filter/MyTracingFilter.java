@@ -1,9 +1,13 @@
 package com.my.filter;
 
+import brave.SpanCustomizer;
+import brave.Tracing;
 import com.my.log.LoggerInfo;
+import org.apache.kafka.clients.producer.*;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.sleuth.SpanNamer;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -23,6 +27,8 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Properties;
+import java.util.concurrent.Future;
 
 /**
  * @program:
@@ -34,6 +40,10 @@ import java.util.Date;
 public class MyTracingFilter implements Filter {
     @Value("${spring.application.name}")
     private String application;
+    @Autowired
+    Tracing tracing;
+    @Autowired
+    SpanNamer spanNamer;
 
     @Autowired
     private KafkaTemplate<String, Object> kafkaTemplate;
@@ -42,6 +52,9 @@ public class MyTracingFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws IOException, ServletException {
 
         HttpServletRequest request = (HttpServletRequest) servletRequest;
+
+
+
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         byte[] body = new byte[0];
         if (request.getMethod().toLowerCase().equals("post")) {
@@ -101,8 +114,8 @@ public class MyTracingFilter implements Filter {
     private void beforeHandler(HttpServletRequest request, byte[] body) {
 
         LoggerInfo loggerInfo = new LoggerInfo();
-
-        String traceId = MDC.get("traceId");
+        String traceId = tracing.currentTraceContext().get().traceIdString();
+//        String traceId = MDC.get("traceId");
         String spanId = MDC.get("spanId");
         String bodyStr = new String(body);
         String url = request.getRequestURI();
@@ -124,14 +137,12 @@ public class MyTracingFilter implements Filter {
             @Override
             public void onFailure(Throwable throwable) {
                 //发送失败的处理
-//                System.out.println(" - 生产者 发送消息失败：" + throwable.getMessage());
             }
 
             @Override
             public void onSuccess(SendResult<String, Object> stringObjectSendResult) {
                 //成功的处理
 
-//                System.out.println(" - 生产者 发送消息成功：" + stringObjectSendResult.toString());
             }
         });
     }
@@ -163,16 +174,66 @@ public class MyTracingFilter implements Filter {
             @Override
             public void onFailure(Throwable throwable) {
                 //发送失败的处理
-//                System.out.println(" - 生产者 发送消息失败：" + throwable.getMessage());
             }
 
             @Override
             public void onSuccess(SendResult<String, Object> stringObjectSendResult) {
                 //成功的处理
-
-//                System.out.println(" - 生产者 发送消息成功：" + stringObjectSendResult.toString());
             }
         });
+    }
+
+
+    public void test(HttpServletRequest request, byte[] body) {
+
+        LoggerInfo loggerInfo = new LoggerInfo();
+
+        String traceId = MDC.get("traceId");
+        String spanId = MDC.get("spanId");
+        String bodyStr = new String(body);
+        String url = request.getRequestURI();
+        String dateStr = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").format(new Date());
+
+        loggerInfo.setApplication(application);
+        loggerInfo.setHost("127.0.0.1");
+        loggerInfo.setLevel("info");
+        loggerInfo.setPort(8080);
+        loggerInfo.setMessage(request.getMethod() + " : " + url + "\nbody\n" + bodyStr);
+        loggerInfo.setLine(0);
+        loggerInfo.setTheadName(Thread.currentThread().getName());
+        loggerInfo.setSpanceId(spanId);
+        loggerInfo.setTraceId(traceId);
+        loggerInfo.setDateTime(dateStr);
+        loggerInfo.setClassName(this.getClass().getName());
+
+        Properties props = new Properties();
+
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.77.135:9092");
+        props.put("acks", "-1");
+//        props.put("retries", 0);
+        props.put("batch.size", 1638400);
+        props.put("linger.ms", 1000 * 1);
+//        props.put(ProducerConfig.COMPRESSION_TYPE_CONFIG, "lz4");
+//        props.put("buffer.memory", 33554432);
+        props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+        props.put("value.serializer", "org.springframework.kafka.support.serializer.JsonSerializer");
+
+
+        Producer<String, LoggerInfo> producer = new KafkaProducer<>(props);
+
+        ProducerRecord<String, LoggerInfo> record = new ProducerRecord<>("my-log", traceId, loggerInfo);
+
+        Future<RecordMetadata> test1 = producer.send(record, new Callback() {
+            @Override
+            public void onCompletion(RecordMetadata metadata, Exception exception) {
+                long offset = metadata.offset();
+                int partition = metadata.partition();
+                String topic = metadata.topic();
+
+                System.out.println("topic:= " + topic + " partition:= " + partition + " offset:= " + offset);
+            }
+        });
+
     }
 
     class ServletInputStreamWrapper extends ServletInputStream {

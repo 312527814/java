@@ -16,5 +16,7 @@ public interface TestService {
     @RequestMapping(method = RequestMethod.POST, value = "/api/check/post")
     String post(@RequestBody String input);
 
+    @RequestMapping(method = RequestMethod.POST, value = "/api/check/web")
+    String post();
 
 }

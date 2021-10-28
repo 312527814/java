@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.mapper.CardMapper">
+    <resultMap id="BaseResultMap" type="com.my.pojo.Card">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="card_id" jdbcType="BIGINT" property="cardId"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="card_state" jdbcType="INTEGER" property="cardState"/>
+        <result column="async" jdbcType="INTEGER" property="async"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+    <select id="selectById" parameterType="int" resultMap="BaseResultMap">
+        select  * from card where id=#{id}
+     </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select  * from card
+     </select>
+    <update id="updateByCardId">
+        update card set card_state=1 where card_id=#{cardId}
+    </update>
+
+    <insert id="add" parameterType="com.my.pojo.Card" useGeneratedKeys="true" keyProperty="id">
+        insert into card(card_id, password,card_state,async,create_time) values(#{cardId}, #{password}, #{cardState}, #{async}, #{createTime})
+    </insert>
+
+    <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO card
+        (card_id, password, card_state,async,create_time)
+        VALUES
+        <foreach collection="cards" item="card" separator=",">
+            (#{card.cardId}, #{card.password}, #{card.cardState},#{card.async},#{card.createTime})
+        </foreach>
+    </insert>
+</mapper>

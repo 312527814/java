@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-@ControllerAdvice
+//@ControllerAdvice
 public class GlobalExceptionHandler {
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
     @Value("${spring.application.name}")
@@ -64,14 +64,11 @@ public class GlobalExceptionHandler {
             @Override
             public void onFailure(Throwable throwable) {
                 //发送失败的处理
-                System.out.println(" - 生产者 发送消息失败：" + throwable.getMessage());
             }
 
             @Override
             public void onSuccess(SendResult<String, Object> stringObjectSendResult) {
                 //成功的处理
-
-                System.out.println(" - 生产者 发送消息成功：" + stringObjectSendResult.toString());
             }
         });
         return obj2String;

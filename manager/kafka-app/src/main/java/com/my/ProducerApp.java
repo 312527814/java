@@ -39,7 +39,7 @@ public class ProducerApp {
 
             String s = "xxooooxxooxxooxx的";
 
-            Future<RecordMetadata> test1 = producer.send(new ProducerRecord<>("test3", s + i), new Callback() {
+            Future<RecordMetadata> test1 = producer.send(new ProducerRecord<>("test3","", s + i), new Callback() {
                 @Override
                 public void onCompletion(RecordMetadata metadata, Exception exception) {
                     long offset = metadata.offset();

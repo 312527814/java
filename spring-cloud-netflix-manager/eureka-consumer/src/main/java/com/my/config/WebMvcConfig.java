@@ -1,7 +1,9 @@
 package com.my.config;
 
+import brave.Tracing;
 import com.my.filter.MyTracingFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.cloud.sleuth.SpanNamer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

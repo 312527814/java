@@ -64,7 +64,7 @@ public class FeginConfiguration {
         loggerInfo.setTraceId(traceId);
         loggerInfo.setDateTime(dateStr);
         loggerInfo.setClassName(this.getClass().getName());
-        ListenableFuture<SendResult<String, Object>> future = kafkaTemplate.send("my-log",traceId,  loggerInfo);
+        ListenableFuture<SendResult<String, Object>> future = kafkaTemplate.send("my-log", traceId, loggerInfo);
         future.addCallback(new ListenableFutureCallback<SendResult<String, Object>>() {
             @Override
             public void onFailure(Throwable throwable) {
@@ -88,7 +88,10 @@ public class FeginConfiguration {
         String spanId = MDC.get("spanId");
         String url = template.url();
         byte[] body = template.body();
-        String bodyStr = new String(body);
+        String bodyStr = "";
+        if (body != null) {
+            bodyStr = new String(body);
+        }
         String message = "Post : " + url + "\nbody\n" + bodyStr;
         String dateStr = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").format(new Date());
 
@@ -103,7 +106,7 @@ public class FeginConfiguration {
         loggerInfo.setTraceId(traceId);
         loggerInfo.setDateTime(dateStr);
         loggerInfo.setClassName(this.getClass().getName());
-        ListenableFuture<SendResult<String, Object>> future = kafkaTemplate.send("my-log",traceId,  loggerInfo);
+        ListenableFuture<SendResult<String, Object>> future = kafkaTemplate.send("my-log", traceId, loggerInfo);
         future.addCallback(new ListenableFutureCallback<SendResult<String, Object>>() {
             @Override
             public void onFailure(Throwable throwable) {

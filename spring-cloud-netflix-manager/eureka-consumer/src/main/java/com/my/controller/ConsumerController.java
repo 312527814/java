@@ -1,6 +1,15 @@
 package com.my.controller;
 
+import brave.Span;
+import brave.SpanCustomizer;
+import brave.Tracing;
+import brave.http.HttpServerHandler;
+import brave.http.HttpServerRequest;
+import brave.http.HttpServerResponse;
+import brave.http.HttpTracing;
 import com.my.openfeign.TestService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +25,14 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.logging.Logger;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @Controller
 public class ConsumerController implements ApplicationContextAware {
 
-    Logger logger = Logger.getLogger(this.getClass().getName());
+    private Logger logger = LoggerFactory.getLogger(ConsumerController.class);
+    //    Logger logger = Logger.getLogger(this.getClass().getName());
     ApplicationContext applicationContext;
     @Resource
     private RestTemplate restTemplate;
@@ -35,6 +45,9 @@ public class ConsumerController implements ApplicationContextAware {
 
     @Autowired
     private TestService testService;
+
+    @Autowired
+    Tracing tracer;
 
     @GetMapping("consumer/get")
     public String get(HttpServletRequest request) {
@@ -112,9 +125,20 @@ public class ConsumerController implements ApplicationContextAware {
     }
 
     @PostMapping("consumer/post")
-    public String post(@RequestBody String input) {
-        logger.info("begin consumer/post ..............");
+    public String post(@RequestBody String input,HttpServletRequest request,HttpServletResponse response) {
 
+
+
+
+
+        logger.info("begin consumer/post ..............");
+        try {
+            String post = testService.post();
+        } catch (Exception e) {
+
+            logger.error(e.toString());
+
+        }
         logger.info("end consumer/post ..............");
         return input;
     }
@@ -131,4 +155,6 @@ public class ConsumerController implements ApplicationContextAware {
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
     }
+
+
 }

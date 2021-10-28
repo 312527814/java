@@ -28,6 +28,11 @@ public class TestController {
     @PostMapping("check/web")
     public String alive2() {
         System.out.println("hello wold....");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         int a = 1 / 0;
         return "hello wold post";
     }
