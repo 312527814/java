@@ -1,5 +1,7 @@
 package com.my;
 
+import java.util.UUID;
+
 /**
  * @program:
  * @description:
@@ -54,16 +56,28 @@ public class TestIntern {
 //        Thread.currentThread().getStackTrace();
 //    }
 
-    public static void main(String[] args) {
-        String str1 = "xy";
-        String str2 = "z";
-        String str3 = "xyz";
-        String str4 = str1 + str2;
-        String str5 = str4.intern();
-        String str6 = "xy" + "z";
+//    public static void main(String[] args) {
+//        String str1 = "xy";
+//        String str2 = "z";
+//        String str3 = "xyz";
+//        String str4 = str1 + str2;
+//        String str5 = str4.intern();
+//        String str6 = "xy" + "z";
+//
+//        System.out.println(str3 == str4); //f
+//        System.out.println(str3 == str5); //t
+//        System.out.println(str3 == str6); //t
+//    }
 
-        System.out.println(str3 == str4); //f
-        System.out.println(str3 == str5); //t
-        System.out.println(str3 == str6); //t
+    public static void main(String[] args) throws Exception {
+
+
+        for (long i = 0; i < Long.MAX_VALUE; i++) {
+            String string = UUID.randomUUID().toString().intern();
+
+            if (1 % 1000 == 0) {
+                System.out.println(string.hashCode());
+            }
+        }
     }
 }

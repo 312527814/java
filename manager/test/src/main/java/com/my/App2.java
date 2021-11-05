@@ -9,16 +9,74 @@ import java.util.concurrent.CountDownLatch;
  * Hello world!
  */
 public class App2 {
-    static final int MAX = 1000 * 10000;
-    static final String[] arr = new String[MAX];
+    private static List<App2> list = new ArrayList<>();
+
+    private static ThreadLocal<App2> local = new ThreadLocal<>();
 
     public static void main(String[] args) throws Exception {
-        String string = new Date().toString();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSSS",Locale.CHINA);
-        Date now = new Date();
-        String format = dateFormat.format(now);
 
-        new CountDownLatch(1).await();
-//        System.gc();
+
+//        App2 app = new App2();
+//        while (true) {
+//            local.set(app);
+//        }
+
+        Object lock = getLock("1", "1");
+
+        new Thread(() -> {
+            synchronized (lock) {
+                try {
+                    lock.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                System.out.println("end........");
+
+            }
+        }).start();
+
+        Thread.sleep(100);
+        synchronized (lock) {
+            lock.notifyAll();
+
+            System.out.println("end2........");
+
+        }
+
+
+
     }
+
+    private static HashMap<String, HashMap<String, Object>> locks = new HashMap<>();
+
+    public static Object getLock(String type, String id) {
+        HashMap<String, Object> hashMap = locks.get(type);
+        if (hashMap == null) {
+            synchronized (App2.class) {
+                hashMap = new HashMap<>();
+                locks.put(type, hashMap);
+            }
+        }
+        Object s = hashMap.get(id);
+        if (s == null) {
+            synchronized (hashMap) {
+                if (s == null) {
+                    hashMap.put(id, new Object());
+                    s = id;
+                }
+            }
+        }
+        return s;
+    }
+
+    public void test(int id) {
+        //todo
+        synchronized (App2.class) {
+            // todo 扣除id商品的库存
+        }
+        //todo
+    }
+
+
 }

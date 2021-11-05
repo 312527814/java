@@ -1,7 +1,9 @@
 package com.my;
 
 import com.my.mapper.flowerMapper;
+import com.my.mapper.userMapper;
 import com.my.pojo.flower;
+import com.my.pojo.user;
 import org.apache.ibatis.datasource.pooled.PooledDataSource;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.*;
@@ -29,6 +31,9 @@ public class MybaitsApp {
 
         flowerMapper mapper = session.getMapper(flowerMapper.class);
         flower flower = mapper.selectById(10);
+        userMapper mapper1 = session.getMapper(userMapper.class);
+        user user = mapper1.selectById(1);
+
         mapper.insert(flower);
 //
 //        int a=9;

@@ -10,14 +10,13 @@ public class App5 {
 
 
     public static void main(String[] args) throws Exception {
-//        int a = 1;
-//        int b = 2;
-//        for (int i = 0; i < 134; i++) {
-//            int c = 32;
-//        }
+        String s = "123";
+        App5 app5 = new App5();
 
-        String string = UUID.randomUUID().toString().replace("-", "");
-        System.out.println(string);
+        System.out.println(s.hashCode());
 
+        System.out.println("App5  " + app5.name.hashCode());
     }
+
+    public String name = "123";
 }
