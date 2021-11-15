@@ -27,6 +27,7 @@ public class MyApp {
             SqlSession session = sqlSessionFactory.openSession();
             flowerMapper mapper = session.getMapper(flowerMapper.class);
             flower flower = mapper.selectById(10);
+            flower flower2 = mapper.selectById(10);
 
             session.commit();
         }

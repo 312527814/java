@@ -16,7 +16,7 @@ import com.alibaba.fastjson.TypeReference;
 
 import java.util.List;
 
-public class FileDataSourceInit implements InitFunc {
+public class ZookeeperDataSourceInit implements InitFunc {
 
     @Override
     public void init() throws Exception {

@@ -27,7 +27,7 @@
     <!-- 环境：配置mybatis的环境 -->
     <settings>
 <!--        <setting name="logImpl" value="LOG4J"/>-->
-        <setting name="cacheEnabled" value="true" />
+        <setting name="cacheEnabled" value="false" />
 <!--        <setting name="lazyLoadingEnabled" value="true"/>-->
     </settings>
     <environments default="">

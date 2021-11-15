@@ -1,1 +1,1 @@
-com.my.persistence.FileDataSourceInit
+com.my.persistence.ZookeeperDataSourceInit

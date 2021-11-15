@@ -1,5 +1,6 @@
 package com.my;
 
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.UUID;
@@ -9,6 +10,7 @@ import java.util.concurrent.CountDownLatch;
  * Hello world!
  */
 public class App3 {
+
     static final int MAX = 1000 * 10000;
     static final String[] arr = new String[MAX];
     public static void main(String[] args) throws InterruptedException {
@@ -24,6 +26,9 @@ public class App3 {
         }
 
         System.out.println((System.currentTimeMillis() - t) + "ms");
+ StringBuilder  sb=new StringBuilder(2);
+ sb.append('a');
+
 
         new CountDownLatch(1).await();
 
@@ -31,3 +36,6 @@ public class App3 {
 
     }
 }
+
+
+

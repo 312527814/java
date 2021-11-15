@@ -17,5 +17,12 @@ public class My2Controller {
         return "hello index+";
     }
 
+    @GetMapping("my2/index2")
+    public String index2() {
+
+
+        return "aaaaaaaaa";
+    }
+
 
 }

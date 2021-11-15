@@ -2,6 +2,7 @@ package com.my;
 
 import java.util.Random;
 import java.util.UUID;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * Hello world!
@@ -10,13 +11,11 @@ public class App5 {
 
 
     public static void main(String[] args) throws Exception {
-        String s = "123";
-        App5 app5 = new App5();
 
-        System.out.println(s.hashCode());
+        byte[] bytes = "hello index+".getBytes();
 
-        System.out.println("App5  " + app5.name.hashCode());
+
+        new CountDownLatch(1).await();
     }
 
-    public String name = "123";
 }

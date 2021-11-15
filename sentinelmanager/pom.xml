@@ -14,6 +14,7 @@
         <module>v3</module>
         <module>v4</module>
         <module>v5</module>
+        <module>v6</module>
     </modules>
 
     <name>sentinelmanager</name>
@@ -56,6 +57,12 @@
             <dependency>
                 <groupId>com.alibaba.csp</groupId>
                 <artifactId>sentinel-datasource-zookeeper</artifactId>
+                <version>1.8.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.csp</groupId>
+                <artifactId>sentinel-datasource-eureka</artifactId>
                 <version>1.8.0</version>
             </dependency>
 
