@@ -6,6 +6,8 @@ import com.my.services.DemoConsumerService;
 import com.my.services.DemoConsumerService2;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.util.concurrent.CountDownLatch;
+
 public class Consumer {
     public static void main(String[] args) throws Exception {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[] {"META-INF/spring/dubbo-demo-consumer.xml"});
@@ -70,6 +72,6 @@ public class Consumer {
 //        }
 
 
-//        new CountDownLatch(1).await();
+        new CountDownLatch(1).await();
     }
 }

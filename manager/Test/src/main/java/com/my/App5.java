@@ -10,12 +10,9 @@ import java.util.concurrent.CountDownLatch;
 public class App5 {
 
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
-        byte[] bytes = "hello index+".getBytes();
-
-
-        new CountDownLatch(1).await();
+       throw  new Error("dd");
     }
 
 }

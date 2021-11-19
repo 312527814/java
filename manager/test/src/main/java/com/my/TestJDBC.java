@@ -58,14 +58,16 @@ public class TestJDBC {
 
         //3.创建Preparestatement,创建数据
 
-        ps = ct.prepareStatement("insert into a(name) values (?)");
+        ps = ct.prepareStatement("insert into my_test(name,age) values (?,?)");
         for (int i = 0; i < 10; i++) {
-            ps.setString(1, (i + 10) + "");
+            ps.setString(1, "zhangsan" + i);
+            ps.setString(2, i + "");
             ps.addBatch();//添加到同一个批处理中
         }
 
         int[] ints = ps.executeBatch();//执行批处理
     }
+
     @Test
     public void selectStream() throws Exception {
         PreparedStatement ps = null;
@@ -78,16 +80,16 @@ public class TestJDBC {
 
         //3.创建Preparestatement,创建数据
 
-        ps = ct.prepareStatement("select * from card",ResultSet.TYPE_FORWARD_ONLY,ResultSet.CONCUR_READ_ONLY);
+        ps = ct.prepareStatement("select * from card", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
 
         ps.setFetchSize(Integer.MIN_VALUE); //也可以修改jdbc url通过defaultFetchSize参数来设置，这样默认所以的返回结果都是通过流方式读取.
         ResultSet resultSet2 = ps.executeQuery();
 
-        int aa=0;
-        while (resultSet2.next()){
+        int aa = 0;
+        while (resultSet2.next()) {
 
             Object object = resultSet2.getObject("id");
-            int a=0;
+            int a = 0;
         }
 
         new CountDownLatch(1).await();
@@ -110,10 +112,10 @@ public class TestJDBC {
 
         ResultSet resultSet = ps.executeQuery();
 
-        int aa=0;
-        while (resultSet.next()){
+        int aa = 0;
+        while (resultSet.next()) {
             Object object = resultSet.getObject("id");
-            int a=0;
+            int a = 0;
         }
 
 

@@ -18,8 +18,8 @@ public class SpringiocApp {
 
         Object factoryBeanTest1 = ac.getBean("factoryBeanTest");
 
-        Object people2 = ac.getBean("flower");
-        Object people = ac.getBean("teacher");
+//        Object people2 = ac.getBean("flower");
+//        Object people = ac.getBean("teacher");
         Object factoryBeanTest = ac.getBean("factoryBeanTest");
         Object factoryBeanTest2 = ac.getBean("factoryBeanTest");
         Object factoryBean = ac.getBean("&factoryBeanTest");
