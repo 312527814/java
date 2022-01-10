@@ -1,9 +1,15 @@
 package com.my;
 
+import org.jboss.netty.util.HashedWheelTimer;
+import org.jboss.netty.util.Timeout;
+import org.jboss.netty.util.TimerTask;
 import org.junit.Test;
 
 import java.math.BigInteger;
 import java.util.*;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Hello world!
@@ -51,17 +57,50 @@ public class App {
     }
 
     @Test
-    public  void  tt(){
+    public void tt() throws InterruptedException {
+        final  HashedWheelTimer timer = new HashedWheelTimer(
+                Executors.defaultThreadFactory(),100, TimeUnit.MILLISECONDS,32);
+        timer.newTimeout(new TimerTask() {
+            @Override
+            public void run(final Timeout timeout) throws Exception {
+                System.out.println("lee");
+                System.out.printf(".....｜｜" + timeout);
 
+            }
+        }, 1000, TimeUnit.MILLISECONDS);
 
-        for (int j = 0; j < 10; j++) {
-            String string = UUID.randomUUID().toString();
-            System.out.println(string.hashCode());
-        }
+        Thread.sleep(10000);
+        new CountDownLatch(1).await();
+
+        //final HashedWheelTimer timer = new HashedWheelTimer(
+        //        Executors.defaultThreadFactory(), 100, TimeUnit.MILLISECONDS, 32);
+        //
+        //timer.newTimeout(new TimerTask() {
+        //    @Override
+        //    public void run(final Timeout timeout) throws Exception {
+        //        System.out.println("lee");   //打印名字
+        //    }
+        //}, 1000, TimeUnit.MILLISECONDS);
+        //
+        //Thread.sleep(10000);
+        //new CountDownLatch(1).await();
     }
 
+    @Test
+    public void testTimerOverflowWheelLength() throws InterruptedException {
+        final HashedWheelTimer timer = new HashedWheelTimer(
+                Executors.defaultThreadFactory(), 100, TimeUnit.MILLISECONDS, 32);
 
+        timer.newTimeout(new TimerTask() {
+            @Override
+            public void run(final Timeout timeout) throws Exception {
+                System.out.println("lee");   //打印名字
+            }
+        }, 1000, TimeUnit.MILLISECONDS);
 
+        Thread.sleep(10000);
+        new CountDownLatch(1).await();
+    }
 
 
 }
