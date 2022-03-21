@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class MyServiceImpl implements MyService {
 
+    @Override
     @MyTransactional
     public int run() {
         System.out.println("run.........");
