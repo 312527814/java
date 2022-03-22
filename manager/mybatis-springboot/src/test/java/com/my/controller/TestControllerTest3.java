@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -53,5 +54,13 @@ public class TestControllerTest3 {
         //when(myService.test(anyString())).thenReturn("null");
         doReturn("null").when(myService).test(anyString());
         String alive = controller.test3();
+    }
+
+    @Test
+    //@Transactional
+    public void aliveTest2() {
+
+        int i = flowerMapper.updateById(4);
+        System.out.println(i);
     }
 }
