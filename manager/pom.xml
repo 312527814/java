@@ -37,6 +37,7 @@
         <module>algorithm-app</module>
         <module>redis-app</module>
         <module>mybatisplus-springboot-dynamic-datasource</module>
+        <module>rocketmq-app</module>
     </modules>
     <name>manager</name>
     <!-- FIXME change it to the project's website -->
@@ -255,13 +256,19 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.12</version>
+                <version>4.11</version>
             </dependency>
 
             <dependency>
                 <groupId>cglib</groupId>
                 <artifactId>cglib</artifactId>
                 <version>3.2.12</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-client</artifactId>
+                <version>4.9.1</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
