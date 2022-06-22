@@ -63,7 +63,7 @@ public class ZookeeperTest {
         ZooKeeper zooKeeper = null;
         try {
             CountDownLatch countDownLatch = new CountDownLatch(1);
-            zooKeeper = new ZooKeeper("192.168.77.135:2181", 4000, new Watcher() {
+            zooKeeper = new ZooKeeper("192.168.247.128:2181", 4000, new Watcher() {
                 @Override
                 public void process(WatchedEvent watchedEvent) {
                     switch (watchedEvent.getState()) {

@@ -1,15 +1,18 @@
 package com.my;
 
+import java.util.regex.Pattern;
+
 /**
  * Hello world!
  *
  */
-public class App 
+public class App
 {
     public static void main( String[] args )
     {
-        Thread thread = new Thread();
-        thread.run();
-        System.out.println( "Hello World!" );
+        String ff="groupId|ddddd";
+        String groupId="group2Id";
+        String pattern = "^" + groupId + "|.*";
+        boolean result = Pattern.matches(pattern, ff);
     }
 }

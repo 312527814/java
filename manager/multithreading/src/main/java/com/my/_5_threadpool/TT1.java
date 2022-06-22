@@ -11,7 +11,6 @@ public class TT1 {
         Callable<String> callable = new Callable() {
             @Override
             public String call() throws Exception {
-
                 Thread.sleep(1000);
                 return "DDEDEDE";
             }
