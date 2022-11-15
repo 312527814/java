@@ -183,5 +183,33 @@ public class OSFileIO {
 
 
     }
+
+    @Test
+    public void testNIO3() throws Exception {
+
+        long startTime = System.currentTimeMillis();
+        RandomAccessFile raf = new RandomAccessFile("nio3.txt", "rw");
+        raf.seek(raf.length());
+        byte[] bytes = (data + "\n").getBytes();
+        FileChannel rafchannel = raf.getChannel();
+        int i = 0;
+        ByteBuffer buf1 = ByteBuffer.allocateDirect(bytes.length);
+        while (i < betch) {
+
+            buf1.put(bytes);
+            buf1.flip();
+            rafchannel.write(buf1);
+            buf1.flip();
+            i++;
+        }
+
+        raf.close();
+        long endTime = System.currentTimeMillis();
+        long usedTime = (endTime - startTime);
+
+        System.out.println("testRandomAccessFileWrite  time " + usedTime);
+
+
+    }
 }
 

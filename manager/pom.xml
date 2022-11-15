@@ -20,7 +20,6 @@
         <module>spring-springboot</module>
         <module>servlet-app</module>
         <module>servlet-springboot</module>
-        <module>servlet-springboot</module>
         <module>mybatis-app</module>
         <module>mybatis-spring</module>
         <module>mybatis-springboot</module>
