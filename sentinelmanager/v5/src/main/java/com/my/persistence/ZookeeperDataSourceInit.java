@@ -17,10 +17,10 @@ import com.alibaba.fastjson.TypeReference;
 import java.util.List;
 
 public class ZookeeperDataSourceInit implements InitFunc {
+    public static final String remoteAddress="192.168.213.131:2181";
 
     @Override
     public void init() throws Exception {
-        final String remoteAddress = "192.168.77.135:2181";
 
         {
             final String path = "/sentinel/flow-rule";
@@ -31,7 +31,7 @@ public class ZookeeperDataSourceInit implements InitFunc {
             FlowRuleManager.register2Property(flowRuleDataSource.getProperty());
 
 
-            WritableDataSource<List<FlowRule>> wds = new ZookeeperWritableDataSource();
+            WritableDataSource<List<FlowRule>> wds = new ZookeeperWritableDataSource(path);
             // 将可写数据源注册至 transport 模块的 WritableDataSourceRegistry 中.
             // 这样收到控制台推送的规则时，Sentinel 会先更新到内存，然后将规则写入到zookeeper中.
             WritableDataSourceRegistry.registerFlowDataSource(wds);
@@ -47,7 +47,7 @@ public class ZookeeperDataSourceInit implements InitFunc {
             DegradeRuleManager.register2Property(DegradeDataSource.getProperty());
 
 
-            WritableDataSource<List<DegradeRule>> degradewds = new ZookeeperWritableDegradeDataSource();
+            WritableDataSource<List<DegradeRule>> degradewds = new ZookeeperWritableDataSource(path);
 
 
             WritableDataSourceRegistry.registerDegradeDataSource(degradewds);

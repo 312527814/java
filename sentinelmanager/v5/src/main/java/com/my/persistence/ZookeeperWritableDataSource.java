@@ -19,19 +19,22 @@ public class ZookeeperWritableDataSource implements WritableDataSource {
     private int RETRY_TIMES = 3;
     private int SLEEP_TIME = 1000;
 
-    private String remoteAddress = "192.168.77.135:2181";
+    private String remoteAddress = ZookeeperDataSourceInit.remoteAddress;
     private int connectionTimeoutMs = 15 * 1000;
     private int sessionTimeoutMs = 60 * 1000;
 
+    private String path;
+
     CuratorFramework zkClient;
 
-    public ZookeeperWritableDataSource() {
+    public ZookeeperWritableDataSource(String path) {
+        this.path = path;
         zkClient = CuratorFrameworkFactory.newClient(remoteAddress, sessionTimeoutMs, connectionTimeoutMs, new ExponentialBackoffRetry(SLEEP_TIME, RETRY_TIMES));
     }
 
     @Override
     public void write(Object value) throws Exception {
-        String path = "/sentinel/flow-rule";
+//        String path = "/sentinel/flow-rule";
         String rule = JSON.toJSONString(value);
         CuratorFrameworkState state = zkClient.getState();
         if (state != CuratorFrameworkState.STARTED) {
