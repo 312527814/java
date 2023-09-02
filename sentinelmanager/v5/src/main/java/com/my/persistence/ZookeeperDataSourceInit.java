@@ -1,5 +1,6 @@
 package com.my.persistence;
 
+import com.alibaba.csp.sentinel.command.handler.ModifyParamFlowRulesCommandHandler;
 import com.alibaba.csp.sentinel.datasource.FileRefreshableDataSource;
 import com.alibaba.csp.sentinel.datasource.FileWritableDataSource;
 import com.alibaba.csp.sentinel.datasource.ReadableDataSource;
@@ -10,6 +11,8 @@ import com.alibaba.csp.sentinel.slots.block.degrade.DegradeRule;
 import com.alibaba.csp.sentinel.slots.block.degrade.DegradeRuleManager;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
+import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowRule;
+import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowRuleManager;
 import com.alibaba.csp.sentinel.transport.util.WritableDataSourceRegistry;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
@@ -51,6 +54,19 @@ public class ZookeeperDataSourceInit implements InitFunc {
 
 
             WritableDataSourceRegistry.registerDegradeDataSource(degradewds);
+        }
+        {
+            final String path = "/sentinel/paramFlow-rule";
+            ReadableDataSource<String, List<ParamFlowRule>> paramFlowDataSource = new ZookeeperDataSource<>(remoteAddress, path,
+                    source -> JSON.parseObject(source, new TypeReference<List<ParamFlowRule>>() {
+                    }));
+            ;
+
+            ParamFlowRuleManager.register2Property(paramFlowDataSource.getProperty());
+
+
+            WritableDataSource<List<ParamFlowRule>> paramFlowWds = new ZookeeperWritableDataSource(path);
+            ModifyParamFlowRulesCommandHandler.setWritableDataSource(paramFlowWds);
         }
 
     }
