@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>实时股票价格监控</title>
+</head>
+<body>
+<h1>实时股票价格</h1>
+<div id="data"></div>
+
+<div id="data2"></div>
+
+<script>
+    const eventSource = new EventSource('/sse/data');
+    eventSource.onmessage = function (event) {
+        document.getElementById('data').innerHTML = event.data;
+    };
+</script>
+</body>
+</html>

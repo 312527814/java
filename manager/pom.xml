@@ -39,6 +39,7 @@
         <module>mybatisplus-springboot-dynamic-datasource</module>
         <module>rocketmq-app</module>
         <module>hbase-app</module>
+        <module>springboot-sse</module>
     </modules>
     <name>manager</name>
     <!-- FIXME change it to the project's website -->
