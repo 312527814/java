@@ -14,26 +14,56 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 
+/**
+ * sse 只有在连接断开了 才会从新发送请求
+ */
 @Controller
 @RequestMapping("/sse")
 public class SseController {
 
     private SseEmitter emitter;
-    @GetMapping("index")
-    public String index(){
-        return "index";
+    @GetMapping("sync1")
+    public String sync1(){
+        return "sync1";
     }
-    @GetMapping("index2")
-    public String index2(){
-        return "index2";
+    @GetMapping("sync2")
+    public String sync2(){
+        return "sync2";
     }
-    @GetMapping("index3")
-    public String index3(){
-        return "index3";
+    @GetMapping("async1")
+    public String async1(){
+        return "async1";
     }
-    @ResponseBody
-    @GetMapping(value = "data",produces = "text/event-stream;charset=utf-8")
-    public String data(){
+    @GetMapping("async2")
+    public String async2(){
+        return "async2";
+    }
+    @GetMapping(value = "syncData1")
+    public void syncData1(HttpServletRequest req, HttpServletResponse resp){
+
+        resp.setHeader("Content-Type","text/event-stream;charset=utf-8");
+        PrintWriter writer = null;
+        try {
+            writer = resp.getWriter();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        for (int i = 0; i < 10; i++) {
+            String data="data:"+new Date().getTime()+ "\n\n";
+            writer.write(data);
+            writer.flush();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+     @ResponseBody
+     @GetMapping(value = "syncData2",produces = "text/event-stream;charset=utf-8")
+    public String syncData2(){
 
         System.out.println("...........");
         Date date = new Date();
@@ -42,34 +72,30 @@ public class SseController {
 //        data +="retry: 10000\n";
 //        data += "dffata:aa" + date.getTime() + "\n\n";
 
-
-
-
         String data="data: {\n";
         data+="data: \"foo\": \"bar\",\n";
-        data+="data: \"baz\", 555\n";
+        data+="data: \"baz\","+date.getTime()+" 555\n";
         data+="data: }\n\n";
         return data;
     }
 
+
     @ResponseBody
-    @GetMapping(value = "data1",produces = "text/event-stream;charset=utf-8")
-    public void data1(HttpServletRequest req, HttpServletResponse resp){
+    @GetMapping(value = "asyncData1",produces = "text/event-stream;charset=utf-8")
+    public void asyncData1(HttpServletRequest req, HttpServletResponse resp){
 
         System.out.println("threadname "+Thread.currentThread().getName());
         AsyncContext asyncContext = req.startAsync();
-        asyncContext.setTimeout(1000*60*60);
+        asyncContext.setTimeout(0);
         asyncContext.start(()->{
 
             new Thread(()->{
                 try {
                     PrintWriter writer = null;
                     Thread.sleep(1000*10);
-                    writer = resp.getWriter();
-                    writer.write("data: }\n\n");
                     System.out.println("threadname2 "+Thread.currentThread().getName());
                     asyncContext.complete();
-                } catch (IOException | InterruptedException e) {
+                } catch ( InterruptedException e) {
                     e.printStackTrace();
                 }
             }).start();
@@ -81,16 +107,22 @@ public class SseController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String data="data: {\n";
-        data+="data: \"foo\": \"bar\",\n";
-        data+="data: \"baz\", 555\n";
-        writer.write(data);
-        writer.flush();
+        for (int i = 0; i < 10; i++) {
+            String data="data:"+new Date().getTime()+ "\n\n";
+            writer.write(data);
+            writer.flush();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     @ResponseBody
-    @GetMapping(path="/data2", produces= MediaType.TEXT_EVENT_STREAM_VALUE)
-    public  SseEmitter data2() {
+    @GetMapping(path="/asyncData2", produces= MediaType.TEXT_EVENT_STREAM_VALUE)
+    public  SseEmitter asyncData2() {
         if(emitter==null){
             emitter = new SseEmitter(1000*60*6L);
         }

@@ -15,8 +15,7 @@ public class HttpClient {
             String msg="GET /async/index HTTP/1.1\n" +
                     "Host: 127.0.0.1\n" +
                     "Content-Type: application/x-www-form-urlencoded\n" +
-                    "Content-Length: 113\n" +
-                    "Connection: Close";
+                    "Content-Length: 113\n";
             msg += "\n\n";
             outputStream.write(msg.getBytes());
             byte[] bytes = new byte[1000];

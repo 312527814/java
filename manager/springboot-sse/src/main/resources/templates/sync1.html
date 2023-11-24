@@ -11,7 +11,7 @@
 <div id="data2"></div>
 
 <script>
-    const eventSource = new EventSource('/sse/data');
+    const eventSource = new EventSource('/sse/syncData1');
     eventSource.onmessage = function (event) {
         document.getElementById('data').innerHTML = event.data;
     };
