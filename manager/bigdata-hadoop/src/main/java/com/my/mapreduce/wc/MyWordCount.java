@@ -22,6 +22,8 @@ public class MyWordCount {
 
         Configuration conf = new Configuration(true);
 
+//        conf.setLong("mapreduce.input.fileinputformat.split.minsize", Integer.MAX_VALUE);
+
         GenericOptionsParser parser = new GenericOptionsParser(conf, args);  //工具类帮我们把-D 等等的属性直接set到conf，会留下commandOptions
         String[] othargs = parser.getRemainingArgs();
 
@@ -56,11 +58,17 @@ public class MyWordCount {
         TextOutputFormat.setOutputPath(job, outfile);
 
         job.setMapperClass(MyMapper.class);
+        // 设置mapper阶段输出的key和value类型
         job.setMapOutputKeyClass(Text.class);
         job.setMapOutputValueClass(IntWritable.class);
+
+
+        //设置reduce最终数据输出的key和value类型
+        job.setOutputKeyClass(Text.class);
+        job.setOutputValueClass(IntWritable.class);
         job.setReducerClass(MyReducer.class);
 
-//        job.setNumReduceTasks(2);
+//        job.setNumReduceTasks(0);
         // Submit the job, then poll for progress until the job is complete
         job.waitForCompletion(true);
 
