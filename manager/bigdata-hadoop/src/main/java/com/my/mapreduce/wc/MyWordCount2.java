@@ -6,26 +6,21 @@ import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.util.GenericOptionsParser;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 
-public class MyWordCount {
+public class MyWordCount2 {
 
 
 
-    //bin/hadoop command [genericOptions] [commandOptions]
-    //    hadoop jar  ooxx.jar  ooxx   -D  ooxx=ooxx  inpath  outpath
-    //  args :   2类参数  genericOptions   commandOptions
-    //  人你有复杂度：  自己分析 args数组
-    //
-    private static final Logger logger = Logger.getLogger(MyMapper.class);
+
     public static void main(String[] args) throws Exception {
 
         BasicConfigurator.configure();
 
-//        logger.info("ddddddd");
         Configuration conf = new Configuration(true);
 
 //        conf.setLong("mapreduce.input.fileinputformat.split.minsize", Integer.MAX_VALUE);
@@ -56,7 +51,7 @@ public class MyWordCount {
 
 
         //必须必须写的
-        job.setJarByClass(MyWordCount.class);
+        job.setJarByClass(MyWordCount2.class);
 
         job.setJobName("mashibing");
 
@@ -65,8 +60,10 @@ public class MyWordCount {
 
         Path outfile = new Path(othargs[1]);
         if (outfile.getFileSystem(conf).exists(outfile)) outfile.getFileSystem(conf).delete(outfile, true);
-        TextOutputFormat.setOutputPath(job, outfile);
-        System.out.println(conf.get("mapreduce.job.outputformat.class"));
+//        TextOutputFormat.setOutputPath(job, outfile);
+        MyTextOutputFormat.setOutputPath(outfile);
+
+        job.setOutputFormatClass(MyTextOutputFormat.class);
         job.setMapperClass(MyMapper.class);
         // 设置mapper阶段输出的key和value类型
         job.setMapOutputKeyClass(Text.class);
