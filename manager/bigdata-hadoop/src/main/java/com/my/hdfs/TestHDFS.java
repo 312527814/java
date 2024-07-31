@@ -39,6 +39,17 @@ public class TestHDFS {
         }
         fs.mkdirs(dir);
 
+
+
+    }
+
+    @Test
+    public void write() throws Exception {
+
+        Path outfile   = new Path("/data/wc/log.txt");
+
+        FSDataOutputStream output = fs.append(outfile);
+        output.write("www\r\n".getBytes());
     }
 
     @Test
