@@ -39,14 +39,6 @@ public class MyTextOutputFormat<K, V>  extends OutputFormat<K, V> {
         return new FileOutputCommitter(FileOutputFormat.getOutputPath(context), context);
     }
 
-    public static void main(String[] args) {
-        String outFilePath = "add/";
-        String substring = outFilePath.substring(outFilePath.length() - 1, outFilePath.length());
-        int i = outFilePath.lastIndexOf("/");
-        String outFilePath2 = "a/dd";
-        int e = outFilePath2.lastIndexOf("/");
-        int a=0;
-    }
     /**
      * 自定义具体数据输出writer
      *

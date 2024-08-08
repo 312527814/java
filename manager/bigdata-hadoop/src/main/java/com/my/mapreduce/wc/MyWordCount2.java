@@ -64,6 +64,7 @@ public class MyWordCount2 {
         MyTextOutputFormat.setOutputPath(outfile);
 
         job.setOutputFormatClass(MyTextOutputFormat.class);
+        job.setInputFormatClass(MyTextInputFormat.class);
         job.setMapperClass(MyMapper.class);
         // 设置mapper阶段输出的key和value类型
         job.setMapOutputKeyClass(Text.class);
