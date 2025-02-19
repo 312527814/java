@@ -1,5 +1,15 @@
 package com.my;
 
+
+/**
+ * @program:
+ * @description:归并排序
+ * 左边排好序+右边排好序+merge让整体有序
+ *
+ * 1 将数组从中间分左右两部分
+ * 2 左右两边分别排好序
+ * 3 左右合并让总体有序
+ */
 public class _04MergeSort {
     public static void main(String[] args) {
         int[] arr = new int[]{2, 3, 1, 5, 7, 2, 4};
